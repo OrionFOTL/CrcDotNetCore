@@ -17,8 +17,8 @@ namespace DotNetCoreWebApi.Model
         public string Name { get; set; }
 
         [Required]
-        public decimal Value { get; set; }
         [Column(TypeName = "decimal(4,2)")]
+        public decimal Value { get; set; }
 
         [Required]
         public string CreatedBy { get; set; }
