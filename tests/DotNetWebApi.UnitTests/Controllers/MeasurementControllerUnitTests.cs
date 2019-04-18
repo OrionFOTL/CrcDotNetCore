@@ -32,7 +32,7 @@ namespace DotNetWebApi.UnitTests.Controllers
         public async Task get_measurement_with_existing_id()
         {
             // Arrange
-            var repository = MeasurementContextMocker.GetInMemoryMeasurementsRepository(nameof(get_all_measurements));
+            var repository = MeasurementContextMocker.GetInMemoryMeasurementsRepository(nameof(get_measurement_with_existing_id));
             var controller = new MeasurementController(repository);
             var expectedValue = 0.25m;
 
