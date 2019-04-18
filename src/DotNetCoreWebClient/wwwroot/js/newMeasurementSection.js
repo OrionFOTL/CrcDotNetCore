@@ -1,7 +1,7 @@
 ﻿class NewMeasurementSection {
-    _listeners = []
 
     constructor() {
+        this._listeners = []
         let addBtn = document.querySelector('#measurements_addBtn')
         addBtn.addEventListener('click', e => {   //to zamiasat function(e) = {}
             let nameInput = document.querySelector('#measurements_nameInput')
@@ -21,7 +21,7 @@
 
     _raiseNewMeasurementAdded(e) {
         this._listeners.forEach(l => {
-            l.NewMeasurementAdded(e)
+            l.newMeasurementAdded(e)
         })
     }
 }
