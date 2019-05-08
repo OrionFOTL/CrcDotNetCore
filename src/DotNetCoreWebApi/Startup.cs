@@ -20,6 +20,8 @@ namespace DotNetCoreWebApi
 {
     public class Startup
     {
+        private const string MyAllowSpecificOrigins = "_allowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +32,19 @@ namespace DotNetCoreWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                    });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<MeasurementContext>(options => options.UseSqlServer(Configuration["ConnectionString:LabDb"]));
             services.AddScoped<IMeasurementRepository<Measurement>, MeasurementRepository>();
@@ -61,6 +76,8 @@ namespace DotNetCoreWebApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiServer API V1");
             });
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseHttpsRedirection();
             app.UseMvc();
